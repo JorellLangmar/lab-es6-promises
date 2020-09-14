@@ -53,11 +53,13 @@ async function makeFood(step) {
 }
 
 const addBrusselSprouts = makeFood(brusselSprouts);
+const audio = new Audio(`./public/media/dinnerIsServed.mp3`);
 
 function addButton() {
   body.innerHTML += `<button>Dinner is served.</button>`;
-  const audio = new Audio(`./public/media/dinnerIsServed.mp3`);
-  audio.play()
+  const btn = document.querySelector("button");
+  btn.onclick = () => {
+  audio.play() }
 }
 
 Promise.all([addSteak, addMashPotatoes, addBrusselSprouts]).then(addButton);
