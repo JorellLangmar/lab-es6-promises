@@ -7,9 +7,11 @@ for (let i = 0; i < mashPotatoes.length; i++) {
 }
 
 const table = document.querySelector("#table");
+const body = document.querySelector("body");
 
 // Iteration 1 using callbacks
-addFood(steak[0], "#steak", () => {
+
+const addSteak = addFood(steak[0], "#steak", () => {
 	addFood(steak[1], "#steak", () => {
 		addFood(steak[2], "#steak", () => {
 			addFood(steak[3], "#steak", () => {
@@ -28,13 +30,14 @@ addFood(steak[0], "#steak", () => {
 });
 
 // Iteration 2 using `.then()`
-addFood(mashPotatoes[0], "#mashPotatoes").then(() => {
+
+const addMashPotatoes = addFood(mashPotatoes[0], "#mashPotatoes").then(() => {
 	addFood(mashPotatoes[1], "#mashPotatoes").then(() => {
 		addFood(mashPotatoes[2], "#mashPotatoes").then(() => {
 			addFood(mashPotatoes[3], "#mashPotatoes").then(() => {
 				addFood(mashPotatoes[4], "#mashPotatoes").then(() => {
-          table.innerHTML += `<img src="./public/images/mashPotatoes.jpg" alt="steak">`
-        });
+					table.innerHTML += `<img src="./public/images/mashPotatoes.jpg" alt="steak">`;
+				});
 			});
 		});
 	});
@@ -45,10 +48,19 @@ addFood(mashPotatoes[0], "#mashPotatoes").then(() => {
 async function makeFood(step) {
 	for (let i = 0; i < step.length; i++) {
 		await addFood(step[i], `#brusselSprouts`);
-  };
-  table.innerHTML += `<img src="./public/images/brusselSprouts.jpg" alt="steak">`
+	}
+	table.innerHTML += `<img src="./public/images/brusselSprouts.jpg" alt="steak">`;
 }
 
-makeFood(brusselSprouts);
+const addBrusselSprouts = makeFood(brusselSprouts);
+
+function addButton() {
+  body.innerHTML += `<button>Dinner is served.</button>`;
+  const audio = new Audio(`./public/media/dinnerIsServed.mp3`);
+  audio.play()
+}
+
+Promise.all([addSteak, addMashPotatoes, addBrusselSprouts]).then(addButton);
+
 
 
